@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 using System.Linq;
 
 namespace Lab2
@@ -33,7 +34,7 @@ namespace Lab2
 
         /// <summary>
         /// Returns the min item but does NOT remove it.
-        /// Time complexity: O(?).
+        /// Time complexity: O(1).
         /// </summary>
         public T Peek()
         {
@@ -45,10 +46,9 @@ namespace Lab2
             return array[0];
         }
 
-        // TODO
         /// <summary>
         /// Adds given item to the heap.
-        /// Time complexity: O(?).
+        /// Time complexity: O(log(n)).
         /// </summary>
         public void Add(T item)
         {
@@ -73,18 +73,30 @@ namespace Lab2
             return ExtractMin();
         }
 
-        // TODO
         /// <summary>
         /// Removes and returns the max item in the min-heap.
         /// Time complexity: O( N ).
         /// </summary>
         public T ExtractMax()
         {
-            // linear search
+            if (IsEmpty)
+            {
+                throw new Exception("Empty Heap");
+            }
 
+            T maxItem = array[0];
+
+            foreach (var item in array)
+            {
+                if (item.CompareTo(maxItem) == 1)
+                {
+                    maxItem = item;
+                }
+            }
+
+            return maxItem;
         }
 
-        // TODO
         /// <summary>
         /// Removes and returns the min item in the min-heap.
         /// Time ctexity: O( log(n) ).
@@ -110,7 +122,6 @@ namespace Lab2
             return min;
         }
 
-        // TODO
         /// <summary>
         /// Returns true if the heap contains the given value; otherwise false.
         /// Time complexity: O( N ).
@@ -131,45 +142,79 @@ namespace Lab2
 
         }
 
-        // TODO
         // Time Complexity: O( log(n) )
         private void TrickleUp(int index)
-        {
+        {   
+            while (index > 0)
+            {
+                int parentIndex = Parent(index);
+                if (array[index].CompareTo(array[parentIndex]) == 1)
+                {
+                    return;
+                }
 
-
+                else
+                {
+                    Swap(index, parentIndex);
+                    index = parentIndex;
+                }
+            }
         }
 
-        // TODO
         // Time Complexity: O( log(n) )
         private void TrickleDown(int index)
         {
+            int leftChildIndex = LeftChild(index);
+            int rightChildIndex = RightChild(index);
 
+            // If both children are greater than the current node's index, then return.
+            if (array[index].CompareTo(array[leftChildIndex]) == -1 && array[index].CompareTo(array[rightChildIndex]) == -1)
+            {
+                return;
+            }
+
+            // If left child is greater than current node's index, swap the two nodes
+            else if (array[index].CompareTo(array[leftChildIndex]) == 1)
+            {
+                Swap(index, leftChildIndex);
+                TrickleDown(index);
+            }
+
+            else
+
+            {
+                Swap(index, rightChildIndex);
+                TrickleDown(index);
+            }
         }
 
-        // TODO
         /// <summary>
         /// Gives the position of a node's parent, the node's position in the heap.
         /// </summary>
         private static int Parent(int position)
         {
-
+            int parentIndex = (position - 1) / 2;
+            return parentIndex;
         }
 
-        // TODO
         /// <summary>
         /// Returns the position of a node's left child, given the node's position.
         /// </summary>
         private static int LeftChild(int position)
         {
+            int leftChildIndex = 2 * position + 1;
+            return leftChildIndex;
         }
 
-        // TODO
         /// <summary>
         /// Returns the position of a node's right child, given the node's position.
         /// </summary>
         private static int RightChild(int position)
         {
+            int rightChildIndex = 2 * position + 2;
+            return rightChildIndex;
         }
+
 
         private void Swap(int index1, int index2)
         {
