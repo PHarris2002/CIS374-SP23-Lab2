@@ -159,29 +159,57 @@ namespace Lab2
         // Time Complexity: O( log(n) )
         private void TrickleDown(int index)
         {
+            //Assign variables for later usage
+            int maxChildIndex = index;
+            T tmp = array[0];
+
+            // Since trickling down requires looking at both the node's children, we call these two methods.
             int leftChildIndex = LeftChild(index);
             int rightChildIndex = RightChild(index);
 
-            // If both children are greater than the current node's index, then return.
-            if (array[index].CompareTo(array[leftChildIndex]) == 1 && array[index].CompareTo(array[rightChildIndex]) == 1)
+            // Checks if right child's index is outside of the array
+            if (rightChildIndex >= Count)
             {
-                return;
+                // Checks if the left child's index is also out of the array
+                if (leftChildIndex >= Count)
+                {
+                    return;
+                }
+
+                // If there is a left child, then make that child the max child index
+                else
+                {
+                    maxChildIndex = leftChildIndex;
+                }
             }
 
-            // If left child is greater than current node's index, swap the two nodes
-            else if (array[index].CompareTo(array[leftChildIndex]) == -1)
-            {
-                Swap(index, leftChildIndex);
-                TrickleDown(index);
-            }
-
+            // If both nodes are present, compare the left child with the right child
             else
-
             {
-                Swap(index, rightChildIndex);
-                TrickleDown(index);
+                // If the left child is greater than the right child, make the left child the max child index
+                if (array[leftChildIndex].CompareTo(array[rightChildIndex]) == 1)
+                {
+                    maxChildIndex = leftChildIndex;
+                }
+
+                // Otherwise, the right child is the max child index
+                else
+                {
+                    maxChildIndex = rightChildIndex;
+                }
+            }
+
+            // Compare the current index with the max child index
+            if (array[index].CompareTo(array[maxChildIndex]) == -1)
+            {
+                // Call swap if current node is less than the child
+                Swap(index, maxChildIndex);
+                    
+                // Use recursion
+                TrickleDown(maxChildIndex);
             }
         }
+
 
         /// <summary>
         /// Gives the position of a node's parent, the node's position in the heap.

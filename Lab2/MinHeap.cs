@@ -164,45 +164,53 @@ namespace Lab2
         // Time Complexity: O( log(n) )
         private void TrickleDown(int index)
         {
-            int minIndex = index;
+            //Assign variables for later usage
+            int minChildIndex = index;
             T tmp = array[0];
 
+            // Since trickling down requires looking at both the node's children, we call these two methods.
             int leftChildIndex = LeftChild(index);
             int rightChildIndex = RightChild(index);
 
-            // Checks if index is within the array
+            // Checks if right child's index is outside of the array
             if (rightChildIndex >= Count)
             {
+                // Checks if the left child's index is also out of the array
                 if (leftChildIndex >= Count)
                 {
                     return;
                 }
 
+                // If there is a left child, then make that child the min child index
                 else
                 {
-                    minIndex = leftChildIndex;
+                    minChildIndex = leftChildIndex;
                 }
             }
 
+            // If both nodes are present, compare the left child with the right child
             else
             {
+                // If the left child is greater than the right child, make the left child the min child index
                 if (array[leftChildIndex].CompareTo(array[rightChildIndex]) == -1)
                 {
-                    minIndex = leftChildIndex;
+                    minChildIndex = leftChildIndex;
                 }
 
+                // Otherwise, the right child is the min child index
                 else
                 {
-                    minIndex = rightChildIndex;
+                    minChildIndex = rightChildIndex;
                 }
             }
-
-            if (array[index].CompareTo(array[minIndex]) == 1)
+            // Compare the current index with the min child index
+            if (array[index].CompareTo(array[minChildIndex]) == 1)
             {
-                tmp = array[minIndex];
-                array[minIndex] = array[index];
-                array[index] = tmp;
-                TrickleDown(minIndex);
+                // Call swap if current node is less than the child
+                Swap(index, minChildIndex);
+
+                // Use recursion
+                TrickleDown(minChildIndex);
 
             }
         }
