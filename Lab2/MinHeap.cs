@@ -164,27 +164,46 @@ namespace Lab2
         // Time Complexity: O( log(n) )
         private void TrickleDown(int index)
         {
+            int minIndex = index;
+            T tmp = array[0];
+
             int leftChildIndex = LeftChild(index);
             int rightChildIndex = RightChild(index);
 
-            // If both children are greater than the current node's index, then return.
-            if (array[index].CompareTo(array[leftChildIndex]) == -1 && array[index].CompareTo(array[rightChildIndex]) == -1)
+            // Checks if index is within the array
+            if (rightChildIndex >= Count)
             {
-                return;
-            }
+                if (leftChildIndex >= Count)
+                {
+                    return;
+                }
 
-            // If left child is greater than current node's index, swap the two nodes
-            else if (array[index].CompareTo(array[leftChildIndex]) == 1)
-            {
-                Swap(index, leftChildIndex);
-                TrickleDown(index);
+                else
+                {
+                    minIndex = leftChildIndex;
+                }
             }
 
             else
-
             {
-                Swap(index, rightChildIndex);
-                TrickleDown(index);
+                if (array[leftChildIndex].CompareTo(array[rightChildIndex]) == -1)
+                {
+                    minIndex = leftChildIndex;
+                }
+
+                else
+                {
+                    minIndex = rightChildIndex;
+                }
+            }
+
+            if (array[index].CompareTo(array[minIndex]) == 1)
+            {
+                tmp = array[minIndex];
+                array[minIndex] = array[index];
+                array[index] = tmp;
+                TrickleDown(minIndex);
+
             }
         }
 
