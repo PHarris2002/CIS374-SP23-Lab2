@@ -169,7 +169,7 @@ namespace Lab2
 
             // Checks if right child's index is outside of the array
             if (rightChildIndex >= Count)
-            {s
+            {
                 // Checks if the left child's index is also out of the array
                 if (leftChildIndex >= Count)
                 {
@@ -192,7 +192,7 @@ namespace Lab2
                     maxChildIndex = leftChildIndex;
                 }
 
-                // Otherwise, the right child is the max child index
+                // Otherwise, the right child is the max index
                 else
                 {
                     maxChildIndex = rightChildIndex;
