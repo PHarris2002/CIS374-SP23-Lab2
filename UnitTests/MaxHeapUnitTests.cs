@@ -235,8 +235,8 @@ namespace UnitTests
             heap1.Add(5000);
             Assert.IsTrue(heap1.Contains(5000));
             Assert.IsTrue(heap1.Contains(150));
+            Console.WriteLine(heap1.Peek());
             heap1.ExtractMax();
-            Console.WriteLine( heap1.Peek() );
             Assert.IsFalse(heap1.Contains(5000));
 
         }

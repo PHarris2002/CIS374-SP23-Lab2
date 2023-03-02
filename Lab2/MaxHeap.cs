@@ -124,16 +124,45 @@ namespace Lab2
         {
             // linear search
 
-            foreach (var item in array)
+            for (int i = 0; i < Count - 1; i++)
             {
-                if (item.CompareTo(value) == 0)
+                if (array[i].CompareTo(value) == 0)
                 {
                     return true;
                 }
             }
 
             return false;
+        }
 
+        // TODO
+        /// <summary>
+        /// Updates the first element with the given value from the heap.
+        /// Time complexity: O( log(n) )
+        /// </summary>
+        public void Update(T oldValue, T newValue)
+        {
+
+
+
+        }
+
+        /// <summary>
+        /// Removes the first element with the given value from the heap.
+        /// Time complexity: O(log(n))
+        /// </summary>
+        public void Remove(T value)
+        {
+            for (int i = 0; i < Count - 1; i++)
+            {
+                if (array[i].CompareTo(value) == 0)
+                {
+                    array[i] = array[Count - 1];
+                    Count--;
+                    TrickleDown(i);
+                    break;
+                }
+            }
         }
 
         // Time Complexity: O( log(n) )

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace Lab2
 {
@@ -140,6 +141,59 @@ namespace Lab2
 
             return false;
 
+        }
+
+        // TODO
+        /// <summary>
+        /// Updates the first element with the given value from the heap.
+        /// Time complexity: O( n * log(n) )
+        /// </summary>
+        public void Update(T oldValue, T newValue)
+        {
+            int index = 0;
+
+            // Find the old value in heap
+            foreach (var item in array)
+            {
+                // If the value is in the heap, then replace that item
+                if (item.CompareTo(oldValue) == 0)
+                {
+                    array[index] = newValue;
+                    
+                    // If the new value is larger than the old value, perform trickle down
+                    if (newValue.CompareTo(oldValue) == 1)
+                    {
+                        TrickleDown(index);
+                    }
+
+                    // Otherwise, perform trickle up
+                    else if (newValue.CompareTo(oldValue) == -1)
+                    {
+                        TrickleDown(index);
+                    }
+                }
+
+                index++;
+            }
+
+        }
+
+        /// <summary>
+        /// Removes the first element with the given value from the heap.
+        /// Time complexity: O(log(n))
+        /// </summary>
+        public void Remove(T value)
+        {
+           for (int i = 0; i < Count - 1; i++)
+            {
+                if (array[i].CompareTo(value) == 0)
+                {
+                    array[i] = array[Count - 1];
+                    Count--;
+                    TrickleDown(i);
+                    break;
+                }
+            }
         }
 
         // Time Complexity: O( log(n) )
