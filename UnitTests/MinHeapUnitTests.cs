@@ -66,7 +66,7 @@ namespace UnitTests
             heap1.Add(2);
             heap1.Add(1);
             heap1.Add(0);
-            
+
             Assert.AreEqual(0, heap1.ExtractMin());
             Assert.AreEqual(1, heap1.ExtractMin());
             Assert.AreEqual(2, heap1.ExtractMin());
@@ -286,6 +286,75 @@ namespace UnitTests
             Assert.AreEqual(30, heap0.Peek());
             heap0.Add(0);
             Assert.AreEqual(0, heap0.Peek());
+
+        }
+
+        [TestMethod]
+        public void TestRemove()
+        {
+            MinHeap<int> heap0 = new MinHeap<int>();
+            heap0.Add(160);
+            heap0.Add(130);
+            heap0.Add(100);
+            heap0.Add(90);
+            heap0.Add(60);
+
+            heap0.Remove(60);
+            Assert.AreEqual(4, heap0.Count);
+            Assert.IsFalse(heap0.Contains(60));
+
+            heap0.Remove(130);
+            Assert.AreEqual(3, heap0.Count);
+            Assert.IsFalse(heap0.Contains(130));
+
+            heap0.Remove(100);
+            Assert.AreEqual(2, heap0.Count);
+            Assert.IsFalse(heap0.Contains(100));
+
+            heap0.Remove(160);
+            Assert.AreEqual(1, heap0.Count);
+            Assert.IsFalse(heap0.Contains(160));
+
+            heap0.Remove(90);
+            Assert.AreEqual(0, heap0.Count);
+            Assert.IsFalse(heap0.Contains(90));
+
+            Assert.ThrowsException<Exception>(() => heap0.Remove(0));
+
+        }
+
+        [TestMethod]
+        public void TestUpdate()
+        {
+            MinHeap<int> heap0 = new MinHeap<int>();
+            heap0.Add(160);
+            heap0.Add(130);
+            heap0.Add(100);
+            heap0.Add(90);
+            heap0.Add(60);
+
+            heap0.Update(60, 65);
+            Assert.AreEqual(5, heap0.Count);
+            Assert.IsFalse(heap0.Contains(60));
+            Assert.IsTrue(heap0.Contains(65));
+
+            heap0.Update(130, 125);
+            Assert.AreEqual(5, heap0.Count);
+            Assert.IsFalse(heap0.Contains(130));
+            Assert.IsTrue(heap0.Contains(125));
+
+            heap0.Update(90, 95);
+            Assert.AreEqual(5, heap0.Count);
+            Assert.IsFalse(heap0.Contains(90));
+            Assert.IsTrue(heap0.Contains(95));
+
+            heap0.Update(160, 50);
+            Assert.AreEqual(5, heap0.Count);
+            Assert.IsFalse(heap0.Contains(160));
+            Assert.IsTrue(heap0.Contains(50));
+            Assert.AreEqual(50, heap0.Peek());
+
+            Assert.ThrowsException<Exception>(() => heap0.Update(0, 10));
 
         }
     }

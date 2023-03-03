@@ -131,16 +131,15 @@ namespace Lab2
         {
             // linear search
 
-            foreach (var item in array)
+            for (int i = 0; i < Count; i++)
             {
-                if (item.CompareTo(value) == 0)
+                if (array[i].CompareTo(value) == 0)
                 {
                     return true;
                 }
             }
 
             return false;
-
         }
 
         // TODO
