@@ -302,19 +302,19 @@ namespace UnitTests
 
 
             heap0.Remove(160);
-            Assert.AreEqual(1, heap0.Count);
+            Assert.AreEqual(4, heap0.Count);
             Assert.IsFalse(heap0.Contains(160));
 
             heap0.Remove(100);
-            Assert.AreEqual(2, heap0.Count);
+            Assert.AreEqual(3, heap0.Count);
             Assert.IsFalse(heap0.Contains(100));
 
             heap0.Remove(60);
-            Assert.AreEqual(4, heap0.Count);
+            Assert.AreEqual(2, heap0.Count);
             Assert.IsFalse(heap0.Contains(60));
 
             heap0.Remove(130);
-            Assert.AreEqual(3, heap0.Count);
+            Assert.AreEqual(1, heap0.Count);
             Assert.IsFalse(heap0.Contains(130));
 
             heap0.Remove(90);

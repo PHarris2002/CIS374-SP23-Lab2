@@ -142,13 +142,18 @@ namespace Lab2
             return false;
         }
 
-        // TODO
         /// <summary>
         /// Updates the first element with the given value from the heap.
         /// Time complexity: O( n * log(n) )
         /// </summary>
         public void Update(T oldValue, T newValue)
         {
+            // Check if the old value is in the heap
+            if (IsEmpty || Contains(oldValue) == false)
+            {
+                throw new Exception("Empty Heap");
+            }
+
             int index = 0;
 
             // Find the old value in heap
@@ -168,7 +173,7 @@ namespace Lab2
                     // Otherwise, perform trickle up
                     else if (newValue.CompareTo(oldValue) == -1)
                     {
-                        TrickleDown(index);
+                        TrickleUp(index);
                     }
                 }
 
@@ -183,11 +188,17 @@ namespace Lab2
         /// </summary>
         public void Remove(T value)
         {
-           for (int i = 0; i < Count - 1; i++)
+            // Check if the value is in the heap
+            if (IsEmpty || Contains(value) == false)
+            {
+                throw new Exception("Empty Heap");
+            }
+
+            for (int i = 0; i < Count; i++)
             {
                 if (array[i].CompareTo(value) == 0)
                 {
-                    array[i] = array[Count - 1];
+                    Swap(i, Count - 1);
                     Count--;
                     TrickleDown(i);
                     break;
